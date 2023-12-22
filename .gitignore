@@ -1,0 +1,24 @@
+# .NET Core
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.userprefs
+*.vscode
+*.vs
+*.suo
+*.cache
+*.log
+*.npm
+*.lock
+*.bak
+*.tmp
+*.swp
+*.DS_Store
+*.dotnet-*
+*.user
+*.vsix
+*.sln.docstates
+project.lock.json
+project.assets.json
