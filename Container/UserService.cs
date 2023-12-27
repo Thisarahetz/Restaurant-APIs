@@ -13,13 +13,15 @@ namespace restaurant_app_API.Container
     {
         private readonly AppDbContex context;
         private readonly IMapper mapper;
-
         private readonly APIResponse response;
-        public UserService(AppDbContex context, IMapper mapper)
+        private readonly ILogger<UserService> logger;
+
+        public UserService(AppDbContex context, IMapper mapper, ILogger<UserService> logger)
         {
             this.context = context;
             this.mapper = mapper;
             this.response = new APIResponse(false, "");
+            this.logger = logger;
         }
 
         public Task<UserModel> Authenticate(string username, string password)
@@ -33,6 +35,7 @@ namespace restaurant_app_API.Container
 
             if (isUserName != null)
             {
+                this.logger.LogInformation("Username already exist");
                 response.Message = "Username already exist";
                 response.Success = false;
                 return Task.FromResult(response);
@@ -40,6 +43,7 @@ namespace restaurant_app_API.Container
 
             try
             {
+                this.logger.LogInformation("Create user");
                 var data = this.mapper.Map<User>(user);
                 this.context.Users.Add(data);
                 this.context.SaveChanges();
@@ -49,6 +53,7 @@ namespace restaurant_app_API.Container
             }
             catch (Exception ex)
             {
+                this.logger.LogInformation("Error create user");
                 response.Message = ex.Message;
                 response.Success = false;
                 return Task.FromResult(response);

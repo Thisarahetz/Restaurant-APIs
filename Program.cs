@@ -3,6 +3,7 @@ using postgreanddotnet.Data;
 using restaurant_app_API.Container;
 using restaurant_app_API.Helper;
 using restaurant_app_API.Service;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,18 @@ var AutoMapper = new MapperConfiguration(cfg =>
 IMapper mapper = AutoMapper.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
+//logger
+// Serilog configuration
+string logPath = builder.Configuration.GetSection("LogPath").Value;
+var _logger = new LoggerConfiguration()
+    .MinimumLevel.Error()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .WriteTo.File(logPath)
+    .CreateLogger();
+
+builder.Services.AddSingleton<Serilog.ILogger>(_logger);
 
 var app = builder.Build();
 
