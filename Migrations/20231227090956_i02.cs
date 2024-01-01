@@ -5,7 +5,7 @@
 namespace restaurant_app_API.Migrations
 {
     /// <inheritdoc />
-    public partial class init123 : Migration
+    public partial class i02 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

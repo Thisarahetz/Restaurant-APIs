@@ -11,8 +11,8 @@ using postgreanddotnet.Data;
 namespace restaurant_app_API.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    [Migration("20231220082517_init1234")]
-    partial class init1234
+    [Migration("20231227090956_i02")]
+    partial class i02
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,55 @@ namespace restaurant_app_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("users", "public");
+                });
+
+            modelBuilder.Entity("restaurant_app_API.Entity.User_Tokens", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("refresh_token");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("token");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("user_tokens", "public");
+                });
+
+            modelBuilder.Entity("restaurant_app_API.Entity.User_Tokens", b =>
+                {
+                    b.HasOne("restaurant_app_API.Entity.User", "user")
+                        .WithOne("user_Tokens")
+                        .HasForeignKey("restaurant_app_API.Entity.User_Tokens", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("restaurant_app_API.Entity.User", b =>
+                {
+                    b.Navigation("user_Tokens")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
