@@ -25,6 +25,7 @@ builder.Services.AddSwaggerGen();
 
 //register the service
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IRefreshHandler, RefreshHandler>();
 
 //authentication
 // builder.Services.AddAuthentication("BasicAuthentication")

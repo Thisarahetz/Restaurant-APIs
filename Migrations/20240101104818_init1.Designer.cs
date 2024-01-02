@@ -11,8 +11,8 @@ using postgreanddotnet.Data;
 namespace restaurant_app_API.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    [Migration("20231227090256_i0")]
-    partial class i0
+    [Migration("20240101104818_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,11 +74,6 @@ namespace restaurant_app_API.Migrations
                         .HasColumnType("text")
                         .HasColumnName("refresh_token");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("token");
-
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
@@ -93,17 +88,18 @@ namespace restaurant_app_API.Migrations
 
             modelBuilder.Entity("restaurant_app_API.Entity.User_Tokens", b =>
                 {
-                    b.HasOne("restaurant_app_API.Entity.User", null)
+                    b.HasOne("restaurant_app_API.Entity.User", "user")
                         .WithOne("user_Tokens")
                         .HasForeignKey("restaurant_app_API.Entity.User_Tokens", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("restaurant_app_API.Entity.User", b =>
                 {
-                    b.Navigation("user_Tokens")
-                        .IsRequired();
+                    b.Navigation("user_Tokens");
                 });
 #pragma warning restore 612, 618
         }

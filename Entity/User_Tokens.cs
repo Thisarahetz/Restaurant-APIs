@@ -11,9 +11,6 @@ namespace restaurant_app_API.Entity
         [Column("user_id")]
         public int UserId { get; set; }
 
-        [Column("token")]
-        public string Token { get; set; }
-
         [Column("refresh_token")]
         public string RefreshToken { get; set; }
 

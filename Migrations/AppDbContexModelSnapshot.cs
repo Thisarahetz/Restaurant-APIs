@@ -71,11 +71,6 @@ namespace restaurant_app_API.Migrations
                         .HasColumnType("text")
                         .HasColumnName("refresh_token");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("token");
-
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
@@ -101,8 +96,7 @@ namespace restaurant_app_API.Migrations
 
             modelBuilder.Entity("restaurant_app_API.Entity.User", b =>
                 {
-                    b.Navigation("user_Tokens")
-                        .IsRequired();
+                    b.Navigation("user_Tokens");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,7 +19,7 @@ namespace postgreanddotnet.Data
         }
 
         public DbSet<User> Users { get; set; }
-        // public DbSet<UserId> UserIds { get; set; }
+        public DbSet<User_Tokens> User_Tokens { get; set; }
 
 
     }

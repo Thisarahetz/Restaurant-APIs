@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace restaurant_app_API.Migrations
 {
     /// <inheritdoc />
-    public partial class i0 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,7 +39,6 @@ namespace restaurant_app_API.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     user_id = table.Column<int>(type: "integer", nullable: false),
-                    token = table.Column<string>(type: "text", nullable: false),
                     refresh_token = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

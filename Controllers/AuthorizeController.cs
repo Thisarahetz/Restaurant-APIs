@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using postgreanddotnet.Data;
 using restaurant_app_API.Model;
+using restaurant_app_API.Service;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -17,13 +18,17 @@ namespace restaurant_app_API.Controllers
     {
         private readonly AppDbContex context;
         private readonly JwtSettings jwtSettings;
+
+        private readonly IRefreshHandler refreshHandler;
         public AuthorizeController(
             AppDbContex appDbContex,
-           IOptions<JwtSettings> jwtSettings
+           IOptions<JwtSettings> jwtSettings,
+              IRefreshHandler refreshHandler
         )
         {
             this.context = appDbContex;
             this.jwtSettings = jwtSettings.Value;
+            this.refreshHandler = refreshHandler;
         }
 
         [HttpPost("GenerateToken")]
@@ -50,7 +55,7 @@ namespace restaurant_app_API.Controllers
                 };
                 var token = tokenhandler.CreateToken(tokendesc);
                 var finaltoken = tokenhandler.WriteToken(token);
-                return Ok(new { Token = finaltoken });
+                return Ok(new { Token = finaltoken, RefreshToken = await refreshHandler.GenerateToken(user.Id) });
 
             }
             else
