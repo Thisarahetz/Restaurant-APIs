@@ -110,6 +110,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+//use static files
+app.UseStaticFiles();
 
 app.UseCors("AllowAll");
 
